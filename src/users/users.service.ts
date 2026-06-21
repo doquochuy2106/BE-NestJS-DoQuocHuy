@@ -16,12 +16,12 @@ export class UsersService {
     return hash;
   };
 
-  async create(email: string, password: string, name: string) {
-    const hasPassWord = this.getHasPassWord(password);
+  async create(createUserDto: CreateUserDto) {
+    const hasPassWord = this.getHasPassWord(createUserDto.password);
     return await this.userModel.create({
-      email,
+      email: createUserDto.email,
       password: hasPassWord,
-      name,
+      name: createUserDto.name,
     });
   }
 
