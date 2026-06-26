@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, DeleteUserDto } from './dto/create-user.dto';
 
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Model, Mongoose } from 'mongoose';
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -68,7 +68,16 @@ export class UsersService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(deleteUserDto: DeleteUserDto) {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(deleteUserDto._id))
+        return 'not found User';
+
+      return await this.userModel.deleteOne({
+        _id: deleteUserDto._id,
+      });
+    } catch (error) {
+      console.log('check error: ', error);
+    }
   }
 }

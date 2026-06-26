@@ -11,3 +11,7 @@ export class CreateUserDto {
   name: string;
   address: string;
 }
+
+export class DeleteUserDto {
+  _id: string;
+}
