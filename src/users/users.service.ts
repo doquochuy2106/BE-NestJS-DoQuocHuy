@@ -4,7 +4,7 @@ import { CreateUserDto, DeleteUserDto } from './dto/create-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import mongoose, { Model, Mongoose } from 'mongoose';
-import { genSaltSync, hashSync } from 'bcryptjs';
+import { genSaltSync, hashSync, compareSync } from 'bcryptjs';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -79,5 +79,15 @@ export class UsersService {
     } catch (error) {
       console.log('check error: ', error);
     }
+  }
+
+  async checkEmail(username: string) {
+    return await this.userModel.findOne({
+      email: username,
+    });
+  }
+
+  checkPassword(imputPassword: string, hasPassword: string) {
+    return compareSync(imputPassword, hasPassword);
   }
 }
