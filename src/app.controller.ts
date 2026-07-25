@@ -21,17 +21,4 @@ export class AppController {
     private configService: ConfigService,
     private authService: AuthService,
   ) {}
-
-  @UseGuards(LocalAuthGuard)
-  @Public()
-  @Post('/login')
-  async handleLogin(@Request() req) {
-    return this.authService.login(req.user);
-  }
-
-  // @Public()
-  @Get('profile')
-  getProfile(@Request() req) {
-    return 'doquochuy123';
-  }
 }
