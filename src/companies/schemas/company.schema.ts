@@ -18,18 +18,24 @@ export class Company {
   createdBy: {
     _id: mongoose.Schema.Types.ObjectId;
     email: string;
+    name: string;
+    role: string;
   };
 
   @Prop({ type: Object })
   updatedBy: {
     _id: mongoose.Schema.Types.ObjectId;
     email: string;
+    name: string;
+    role: string;
   };
 
   @Prop({ type: Object })
   deletedBy: {
     _id: mongoose.Schema.Types.ObjectId;
     email: string;
+    name: string;
+    role: string;
   };
 
   @Prop()
