@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CompaniesService } from './companies.service';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
+import { CreateCompanyDto, UpdateCompanyDto } from './dto/company.dto';
+
 import { User } from 'src/decorator/customize';
 import { IUser } from 'src/users/users.interface';
 
@@ -32,9 +32,9 @@ export class CompaniesController {
     return this.companiesService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
-    return this.companiesService.update(+id, updateCompanyDto);
+  @Patch()
+  update(@Body() updateCompanyDto: UpdateCompanyDto, @User() user: IUser) {
+    return this.companiesService.update(updateCompanyDto, user);
   }
 
   @Delete(':id')
